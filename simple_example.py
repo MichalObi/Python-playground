@@ -1,10 +1,13 @@
-# python playground
 import random
-
-# global config variable
+import time
+import datetime
+# global config
+start_time = time.time()
 defaultMinNumber = 1
 defaultMaxNumber = 5
 defaultNumber = random.randint(defaultMinNumber, defaultMaxNumber)
+
+fruits = ['orange', 'banana', 'anananas']
 
 iterationCopy= 'Iteration '
 notNumberCopy = 'It is not a number'
@@ -12,8 +15,9 @@ defaultParamCopy = 'We will use default param'
 forLoopCopy = 'Example of for loop: ==========>'
 whileLoopCopy = 'Example of while loop: ==========>'
 forLoopOutOfRangeCopy = 'No items in fruits array'
-
-fruits = ['orange', 'banana', 'anananas']
+programStartCopy = 'Program inicialized in '
+programEndCopy = 'Program execution time - %s seconds'
+currentDateFormat = '%Y-%m-%d %H:%M'
 
 class helperMsgClass:
     @staticmethod
@@ -26,7 +30,6 @@ class helperMsgClass:
             print whileLoopCopy
 
 class defaultClass:
-
     def defaultIteration(self, x):
         helperMsgClass.printMsg('default_iteration', x)
         self.iterationsFn(x)
@@ -63,5 +66,8 @@ class defaultClass:
 
 if __name__ == "__main__":
     #inicialize class instance
+    now = datetime.datetime.now()
+    print programStartCopy +  now.strftime(currentDateFormat)
     program = defaultClass()
     program.mainFn(5)
+    print(programEndCopy % (time.time() - start_time))
