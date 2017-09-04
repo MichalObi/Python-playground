@@ -1,6 +1,8 @@
 import random
 import time
 import datetime
+import time
+
 # global config
 start_time = time.time()
 defaultMinNumber = 1
@@ -18,6 +20,7 @@ forLoopOutOfRangeCopy = 'No items in fruits array'
 programStartCopy = 'Program inicialized in '
 programEndCopy = 'Program execution time - %s seconds'
 currentDateFormat = '%Y-%m-%d %H:%M'
+programNextInitCopy = 'Next program run ' 
 
 class helperMsgClass:
     @staticmethod
@@ -70,4 +73,5 @@ if __name__ == "__main__":
     print programStartCopy +  now.strftime(currentDateFormat)
     program = defaultClass()
     program.mainFn(5)
-    print(programEndCopy % (time.time() - start_time))
+    print (programEndCopy % (time.time() - start_time))
+    print programNextInitCopy + str(now + datetime.timedelta(hours=24))
