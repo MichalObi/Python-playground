@@ -1,7 +1,7 @@
 import random
 import time
 import datetime
-import time
+
 
 # global config
 start_time = time.time()
@@ -20,7 +20,7 @@ forLoopOutOfRangeCopy = 'No items in fruits array'
 programStartCopy = 'Program inicialized in '
 programEndCopy = 'Program execution time - %s seconds'
 currentDateFormat = '%Y-%m-%d %H:%M'
-programNextInitCopy = 'Next program run ' 
+programNextInitCopy = 'Next program run '
 
 class helperMsgClass:
     @staticmethod
@@ -70,8 +70,9 @@ class defaultClass:
 if __name__ == "__main__":
     #inicialize class instance
     now = datetime.datetime.now()
-    print programStartCopy +  now.strftime(currentDateFormat)
     program = defaultClass()
     program.mainFn(5)
+    print programStartCopy +  now.strftime(currentDateFormat)
     print (programEndCopy % (time.time() - start_time))
+    #script can run every 24h with cron
     print programNextInitCopy + str(now + datetime.timedelta(hours=24))
