@@ -1,7 +1,7 @@
 import random
 import time
 import datetime
-
+import calendar
 
 # global config
 start_time = time.time()
@@ -21,6 +21,7 @@ programStartCopy = 'Program inicialized in '
 programEndCopy = 'Program execution time - %s seconds'
 currentDateFormat = '%Y-%m-%d %H:%M'
 programNextInitCopy = 'Next program run '
+displayDayCopy = ' (%s)'
 
 class helperMsgClass:
     @staticmethod
@@ -68,11 +69,16 @@ class defaultClass:
             print notNumberCopy
 
 if __name__ == "__main__":
+    def currentDayName(number):
+        return str(calendar.day_name[number])
+
     #inicialize class instance
     now = datetime.datetime.now()
     program = defaultClass()
     program.mainFn(5)
-    print programStartCopy +  now.strftime(currentDateFormat)
+
+    print programStartCopy +  now.strftime(currentDateFormat) + displayDayCopy % currentDayName(datetime.datetime.today().weekday())
     print (programEndCopy % (time.time() - start_time))
-    #script can run every 24h with cron
-    print programNextInitCopy + str(now + datetime.timedelta(hours=24))
+
+    #script can run every 24h with cron - do not use Timer obj for this
+    print programNextInitCopy + str(now + datetime.timedelta(hours=24)) + displayDayCopy % currentDayName(datetime.datetime.today().weekday() + 1)
