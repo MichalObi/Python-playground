@@ -17,7 +17,7 @@ defaultParamCopy = 'We will use default param'
 forLoopCopy = 'Example of for loop: ==========>'
 whileLoopCopy = 'Example of while loop: ==========>'
 forLoopOutOfRangeCopy = 'No items in fruits array'
-programStartCopy = 'Program inicialized in '
+programStartCopy = 'Program initialized in '
 programEndCopy = 'Program execution time - %s seconds'
 currentDateFormat = '%Y-%m-%d %H:%M'
 programNextInitCopy = 'Next program run '
@@ -77,8 +77,22 @@ if __name__ == "__main__":
     program = defaultClass()
     program.mainFn(5)
 
-    print programStartCopy +  now.strftime(currentDateFormat) + displayDayCopy % currentDayName(datetime.datetime.today().weekday())
-    print (programEndCopy % (time.time() - start_time))
+    programStartCopy = programStartCopy +  now.strftime(currentDateFormat) + displayDayCopy % currentDayName(datetime.datetime.today().weekday())
+    programEndCopy = (programEndCopy % (time.time() - start_time))
 
     #script can run every 24h with cron - do not use Timer obj for this
-    print programNextInitCopy + str(now + datetime.timedelta(hours=24)) + displayDayCopy % currentDayName(datetime.datetime.today().weekday() + 1)
+    programNextInitCopy = programNextInitCopy + str(now + datetime.timedelta(hours=24)) + displayDayCopy % currentDayName(datetime.datetime.today().weekday() + 1)
+
+    print programStartCopy
+    print programEndCopy
+    print programNextInitCopy
+
+    #write start and end info to log file
+    f = open('log.txt', 'a+')
+    f.write(programStartCopy)
+    f.write('\n')
+    f.write(programEndCopy)
+    f.write('\n')
+    f.write(programNextInitCopy)
+    f.write('\n')
+    f.close()
