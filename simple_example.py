@@ -2,6 +2,8 @@ import random
 import time
 import datetime
 import calendar
+import os
+import shutil
 
 # global config
 start_time = time.time()
@@ -22,6 +24,7 @@ programEndCopy = 'Program execution time - %s seconds'
 currentDateFormat = '%Y-%m-%d %H:%M'
 programNextInitCopy = 'Next program run '
 displayDayCopy = ' (%s)'
+backupCreatedCopy = 'Backup created'
 
 class helperMsgClass:
     @staticmethod
@@ -70,12 +73,14 @@ class defaultClass:
 
 if __name__ == "__main__":
     def currentDayName(number):
+        if number > 6:
+            number = 0
         return str(calendar.day_name[number])
 
     #inicialize class instance
     now = datetime.datetime.now()
     program = defaultClass()
-    program.mainFn(5)
+    program.mainFn(1)
 
     programStartCopy = programStartCopy +  now.strftime(currentDateFormat) + displayDayCopy % currentDayName(datetime.datetime.today().weekday())
     programEndCopy = (programEndCopy % (time.time() - start_time))
@@ -85,7 +90,6 @@ if __name__ == "__main__":
 
     print programStartCopy
     print programEndCopy
-    print programNextInitCopy
 
     #write start and end info to log file
     f = open('log.txt', 'a+')
@@ -96,3 +100,17 @@ if __name__ == "__main__":
     f.write(programNextInitCopy)
     f.write('\n')
     f.close()
+
+    if os.path.exists('log.txt'):
+        src = os.path.realpath('log.txt')
+        head, tail = os.path.split(src)
+        print 'File ' + tail + ' saved in ' + head
+
+    if not os.path.exists('backup'):
+        os.makedirs('backup')
+
+    shutil.copy(os.path.realpath('log.txt'), os.path.realpath('backup'))
+
+    print backupCreatedCopy
+
+    print programNextInitCopy
